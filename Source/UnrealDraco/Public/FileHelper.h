@@ -14,6 +14,12 @@
 #include "draco/compression/encode.h"
 #include "draco/io/file_writer_interface.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(UDLog, Log, All);
+
+#define UDWARNING(lg) UE_LOG(UDLog, Warning, TEXT(lg));
+#define UDWARNING1(lg,str1) UE_LOG(UDLog, Warning, TEXT(lg),str1);
+#define UDWARNING2(lg,str1,str2) UE_LOG(UDLog, Warning, TEXT(lg),str1,str2);
+
 namespace draco {
 
 class UD_FileReader : public FileReaderInterface {

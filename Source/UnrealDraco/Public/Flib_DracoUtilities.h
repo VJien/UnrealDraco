@@ -26,18 +26,28 @@ struct FOptions
 
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool is_point_cloud;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int pos_quantization_bits;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int tex_coords_quantization_bits;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool tex_coords_deleted;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int normals_quantization_bits;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool normals_deleted;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int generic_quantization_bits;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool generic_deleted;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int compression_level;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool use_metadata;
-	FString input;
-	FString output;
+
+
 };
 
 
@@ -51,9 +61,9 @@ class UNREALDRACO_API UFlib_DracoUtilities : public UBlueprintFunctionLibrary
 
 public:
 	UFUNCTION(BlueprintCallable)
-		static void EncoderFromFile(const FString& fileName,  const FString& outName, FOptions options);
+		static bool EncoderFromFile(const FString& inFileName,  const FString& outFileName, FOptions options);
+	UFUNCTION(BlueprintCallable)
+		static bool DecoderToFile(const FString& inFileName, const FString& outFileName);
 
 
-
-protected:
-	};
+};

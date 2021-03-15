@@ -1,4 +1,4 @@
-#include "FileHelper.h"
+﻿#include "FileHelper.h"
 
 #include <algorithm>
 #include <cstdint>
@@ -17,15 +17,15 @@
 #include "draco/io/file_writer_factory.h"
 //#include "draco/io/file_writer_utils.h"
 
-
+DEFINE_LOG_CATEGORY(UDLog)
 
 namespace draco {
 
-#define FILEREADER_LOG_ERROR(error_string)                             \
-  do {                                                                 \
-    fprintf(stderr, "%s:%d (%s): %s.\n", __FILE__, __LINE__, __func__, \
-            error_string);                                             \
-  } while (false)
+//#define FILEREADER_LOG_ERROR(error_string)                             \
+//  do {                                                                 \
+//    fprintf(stderr, "%s:%d (%s): %s.\n", __FILE__, __LINE__, __func__, \
+//            error_string);                                             \
+//  } while (false)
 
 bool UD_FileReader::registered_in_factory_ =
     FileReaderFactory::RegisterReader(UD_FileReader::Open);
@@ -47,7 +47,7 @@ std::unique_ptr<FileReaderInterface> UD_FileReader::Open(
   std::unique_ptr<FileReaderInterface> file(new (std::nothrow)
                                                 UD_FileReader(raw_file_ptr));
   if (file == nullptr) {
-    FILEREADER_LOG_ERROR("Out of memory");
+	  UDWARNING("Out of memory");
     fclose(raw_file_ptr);
     return nullptr;
   }
@@ -63,7 +63,7 @@ bool UD_FileReader::ReadFileToBuffer(std::vector<char> *buffer) {
 
   const size_t file_size = GetFileSize();
   if (file_size == 0) {
-    FILEREADER_LOG_ERROR("Unable to obtain file size or file empty");
+	UDWARNING("Unable to obtain file size or file empty");
     return false;
   }
 
@@ -79,7 +79,7 @@ bool UD_FileReader::ReadFileToBuffer(std::vector<uint8_t> *buffer) {
 
   const size_t file_size = GetFileSize();
   if (file_size == 0) {
-    FILEREADER_LOG_ERROR("Unable to obtain file size or file empty");
+  UDWARNING("Unable to obtain file size or file empty");
     return false;
   }
 
@@ -90,7 +90,7 @@ bool UD_FileReader::ReadFileToBuffer(std::vector<uint8_t> *buffer) {
 
 size_t UD_FileReader::GetFileSize() {
   if (fseek(file_, SEEK_SET, SEEK_END) != 0) {
-    FILEREADER_LOG_ERROR("Seek to EoF failed");
+	UDWARNING("Seek to EoF failed");
     return false;
   }
 
@@ -110,19 +110,17 @@ int EncodeMeshToFile(const draco::Mesh& mesh, const std::string& file,
 	timer.Start();
 	const draco::Status status = encoder->EncodeMeshToBuffer(mesh, &buffer);
 	if (!status.ok()) {
-		printf("Failed to encode the mesh.\n");
-		printf("%s\n", status.error_msg());
+		UDWARNING1("Failed to encode the mesh.\n %s", status.error_msg());
 		return -1;
 	}
 	timer.Stop();
 	// Save the encoded geometry into a file.
 	if (!draco::WriteBufferToFile(buffer.data(), buffer.size(), file)) {
-		printf("Failed to create the output file.\n");
+		UDWARNING("Failed to create the output file.\n");
 		return -1;
 	}
-	printf("Encoded mesh saved to %s (%" PRId64 " ms to encode).\n", file.c_str(),
-		timer.GetInMs());
-	printf("\nEncoded size = %zu bytes\n\n", buffer.size());
+	UE_LOG(UDLog,Log, TEXT("Encoded mesh saved to %s \n (%" PRId64 " ms to encode).\n"), file.c_str(), timer.GetInMs());
+	UE_LOG(UDLog, Log, TEXT("\nEncoded size = %zu bytes\n\n"), buffer.size());
 	return 0;
 }
 int EncodePointCloudToFile(const draco::PointCloud& pc, const std::string& file,
@@ -133,19 +131,17 @@ int EncodePointCloudToFile(const draco::PointCloud& pc, const std::string& file,
 	timer.Start();
 	const draco::Status status = encoder->EncodePointCloudToBuffer(pc, &buffer);
 	if (!status.ok()) {
-		printf("Failed to encode the point cloud.\n");
-		printf("%s\n", status.error_msg());
+		UDWARNING1("Failed to encode the point cloud.\n %s", status.error_msg());
+
 		return -1;
 	}
 	timer.Stop();
 	// Save the encoded geometry into a file.
 	if (!draco::WriteBufferToFile(buffer.data(), buffer.size(), file)) {
-		printf("Failed to write the output file.\n");
+		UDWARNING("Failed to write the output file.\n");
 		return -1;
 	}
-	printf("Encoded point cloud saved to %s (%" PRId64 " ms to encode).\n",
-		file.c_str(), timer.GetInMs());
-	printf("\nEncoded size = %zu bytes\n\n", buffer.size());
+	UE_LOG(UDLog, Log, TEXT("Encoded mesh saved to %s (%" PRId64 " ms to encode).\n\nEncoded size = %zu bytes\n\n"), file.c_str(), timer.GetInMs(), buffer.size());
 	return 0;
 }
 
@@ -194,12 +190,12 @@ bool CheckAndCreatePathForFile(const std::string& filename) {
 	const bool directory_exists = DirectoryExists(path);
 	return directory_exists;
 }
-
-#define FILEWRITER_LOG_ERROR(error_string)                             \
-  do {                                                                 \
-    fprintf(stderr, "%s:%d (%s): %s.\n", __FILE__, __LINE__, __func__, \
-            error_string);                                             \
-  } while (false)
+//
+//#define FILEWRITER_LOG_ERROR(error_string)                             \
+//  do {                                                                 \
+//    fprintf(stderr, "%s:%d (%s): %s.\n", __FILE__, __LINE__, __func__, \
+//            error_string);                                             \
+//  } while (false)
 
 bool UD_FileWriter::registered_in_factory_ =
 draco::FileWriterFactory::RegisterWriter(UD_FileWriter::Open);
@@ -223,7 +219,7 @@ std::unique_ptr<FileWriterInterface> UD_FileWriter::Open(
 	std::unique_ptr<UD_FileWriter> file(new (std::nothrow)
 		UD_FileWriter(raw_file_ptr));
 	if (file == nullptr) {
-		FILEWRITER_LOG_ERROR("Out of memory");
+		UDWARNING("Out of memory");
 		fclose(raw_file_ptr);
 		return nullptr;
 	}
