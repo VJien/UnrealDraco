@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright VJ. All Rights Reserved.
 
 using UnrealBuildTool;
 using System.IO;
@@ -143,7 +143,7 @@ public class UnrealDraco : ModuleRules
 
         PublicIncludePaths.Add(Path.GetFullPath(DracoInclude));
         PublicSystemLibraryPaths.AddRange(LibPaths);
-       // PublicAdditionalLibraries.AddRange(LibFilePaths);
+
         PublicSystemLibraries.AddRange(LibFilePaths);
 
 

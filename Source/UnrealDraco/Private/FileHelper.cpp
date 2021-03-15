@@ -1,4 +1,6 @@
-﻿#include "FileHelper.h"
+﻿// Copyright VJ. All Rights Reserved.
+
+#include "FileHelper.h"
 
 #include <algorithm>
 #include <cstdint>
@@ -21,11 +23,7 @@ DEFINE_LOG_CATEGORY(UDLog)
 
 namespace draco {
 
-//#define FILEREADER_LOG_ERROR(error_string)                             \
-//  do {                                                                 \
-//    fprintf(stderr, "%s:%d (%s): %s.\n", __FILE__, __LINE__, __func__, \
-//            error_string);                                             \
-//  } while (false)
+
 
 bool UD_FileReader::registered_in_factory_ =
     FileReaderFactory::RegisterReader(UD_FileReader::Open);
@@ -191,12 +189,7 @@ bool CheckAndCreatePathForFile(const std::string& filename) {
 	const bool directory_exists = DirectoryExists(path);
 	return directory_exists;
 }
-//
-//#define FILEWRITER_LOG_ERROR(error_string)                             \
-//  do {                                                                 \
-//    fprintf(stderr, "%s:%d (%s): %s.\n", __FILE__, __LINE__, __func__, \
-//            error_string);                                             \
-//  } while (false)
+
 
 bool UD_FileWriter::registered_in_factory_ =
 draco::FileWriterFactory::RegisterWriter(UD_FileWriter::Open);

@@ -1,4 +1,5 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright VJ. All Rights Reserved.
+
 
 #pragma once
 
@@ -60,9 +61,9 @@ class UNREALDRACO_API UFlib_DracoUtilities : public UBlueprintFunctionLibrary
 
 
 public:
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = UnrealDraco)
 		static bool EncoderFromFile(const FString& inFileName,  const FString& outFileName, FOptions options);
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = UnrealDraco)
 		static bool DecoderToFile(const FString& inFileName, const FString& outFileName);
 
 

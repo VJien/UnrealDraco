@@ -1,4 +1,5 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright VJ. All Rights Reserved.
+
 
 #include "UnrealDraco.h"
 #include "draco/io/file_reader_factory.h"

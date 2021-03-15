@@ -1,3 +1,6 @@
+// Copyright VJ. All Rights Reserved.
+
+
 #ifndef DRACO_IO_STDIO_FILE_READER_H_
 #define DRACO_IO_STDIO_FILE_READER_H_
 
