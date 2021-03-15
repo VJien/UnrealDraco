@@ -44,10 +44,10 @@ std::unique_ptr<FileReaderInterface> UD_FileReader::Open(
     return nullptr;
   }
 
-  std::unique_ptr<FileReaderInterface> file(new (std::nothrow)
-                                                UD_FileReader(raw_file_ptr));
-  if (file == nullptr) {
-	  UDWARNING("Out of memory");
+  std::unique_ptr<FileReaderInterface> file(new (std::nothrow) UD_FileReader(raw_file_ptr));
+  if (file == nullptr) 
+  {
+	UDWARNING("Out of memory");
     fclose(raw_file_ptr);
     return nullptr;
   }
@@ -56,7 +56,8 @@ std::unique_ptr<FileReaderInterface> UD_FileReader::Open(
 }
 
 bool UD_FileReader::ReadFileToBuffer(std::vector<char> *buffer) {
-  if (buffer == nullptr) {
+  if (buffer == nullptr) 
+  {
     return false;
   }
   buffer->clear();
