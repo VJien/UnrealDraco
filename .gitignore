@@ -1,0 +1,13 @@
+Build
+Content/Test
+Intermediate
+.vs
+*.sln
+Binaries
+/Config/steamvr_ue_editor_app.json
+*.steamvr_ue_editor_app.json
+
+/Saved/Config/Windows/EditorPerProjectUserSettings.ini
+/Saved/
+!saved/Config/Windows/ExtensionSetting.ini
+/Config/steamvr_ue_editor_app.json
