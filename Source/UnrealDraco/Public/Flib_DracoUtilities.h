@@ -62,9 +62,9 @@ class UNREALDRACO_API UFlib_DracoUtilities : public UBlueprintFunctionLibrary
 
 public:
 	UFUNCTION(BlueprintCallable, Category = UnrealDraco)
-		static bool EncoderFromFile(const FString& inFileName,  const FString& outFileName, FOptions options);
+		static bool Encoder(const FString& inFileName,  const FString& outFileName, FOptions options);
 	UFUNCTION(BlueprintCallable, Category = UnrealDraco)
-		static bool DecoderToFile(const FString& inFileName, const FString& outFileName);
+		static bool Decoder(const FString& inFileName, const FString& outFileName);
 
 
 };

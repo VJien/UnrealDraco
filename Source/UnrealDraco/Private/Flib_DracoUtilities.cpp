@@ -38,7 +38,7 @@
  
 
 
-bool UFlib_DracoUtilities::EncoderFromFile(const FString& inFileName, const FString& outFileName, FOptions options)
+bool UFlib_DracoUtilities::Encoder(const FString& inFileName, const FString& outFileName, FOptions options)
 {
 	if (options.pos_quantization_bits > 30)
 	{
@@ -177,11 +177,11 @@ bool UFlib_DracoUtilities::EncoderFromFile(const FString& inFileName, const FStr
 	return true;
 }
 
-bool UFlib_DracoUtilities::DecoderToFile(const FString& inFileName, const FString& outFileName)
+bool UFlib_DracoUtilities::Decoder(const FString& inFileName, const FString& outFileName)
 {
 	if (inFileName.IsEmpty() || outFileName.IsEmpty())
 	{
-		UDWARNING("DecoderToFile : invalid file name.\n");
+		UDWARNING("Decoder : invalid file name.\n");
 		return false;
 	}
 	std::string inFile(TCHAR_TO_UTF8(*inFileName));

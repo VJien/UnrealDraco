@@ -1,7 +1,9 @@
 ﻿// Copyright VJ. All Rights Reserved.
 
 #include "FileHelper.h"
-
+#include "Windows/AllowWindowsPlatformTypes.h"
+#include "windows.h"
+#include "Windows/HideWindowsPlatformTypes.h"
 #include <algorithm>
 #include <cstdint>
 #include <cstdio>
@@ -17,7 +19,6 @@
 #include "draco/core/cycle_timer.h"
 #include "draco/io/file_utils.h"
 #include "draco/io/file_writer_factory.h"
-//#include "draco/io/file_writer_utils.h"
 
 DEFINE_LOG_CATEGORY(UDLog)
 
@@ -36,11 +37,19 @@ std::unique_ptr<FileReaderInterface> UD_FileReader::Open(
     return nullptr;
   }
 
-  FILE *raw_file_ptr = fopen(file_name.c_str(), "rb");
-
+ /* FILE *raw_file_ptr = fopen( file_name.c_str(), "rb");
   if (raw_file_ptr == nullptr) {
     return nullptr;
-  }
+  }*/
+
+  FILE* raw_file_ptr;
+  errno_t err;
+  err = fopen_s(&raw_file_ptr, file_name.c_str(), "rb");
+  if (err != 0)
+  {
+	return nullptr;
+  }                         
+  
 
   std::unique_ptr<FileReaderInterface> file(new (std::nothrow) UD_FileReader(raw_file_ptr));
   if (file == nullptr) 
@@ -205,10 +214,14 @@ std::unique_ptr<FileWriterInterface> UD_FileWriter::Open(
 		return nullptr;
 	}
 
-	FILE* raw_file_ptr = fopen(file_name.c_str(), "wb");
-	if (raw_file_ptr == nullptr) {
+	FILE* raw_file_ptr;
+	errno_t err;
+	err = fopen_s(&raw_file_ptr, file_name.c_str(), "wb");
+	if (err != 0)
+	{
 		return nullptr;
 	}
+
 
 	std::unique_ptr<UD_FileWriter> file(new (std::nothrow)
 		UD_FileWriter(raw_file_ptr));

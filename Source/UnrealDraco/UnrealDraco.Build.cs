@@ -62,7 +62,7 @@ public class UnrealDraco : ModuleRules
 
 
 
-        string DracoPath = Path.Combine(ModuleDirectory, "../libdraco_ue4");
+        string DracoPath = Path.Combine(ModuleDirectory, "../ThirdParty");
         //string DracoPath = Path.Combine(ThirdPartyPath, "Draco");
         string DracoInclude = Path.Combine(DracoPath, "include");
         string DracoLib = Path.Combine(DracoPath, "lib");
@@ -147,7 +147,6 @@ public class UnrealDraco : ModuleRules
         PublicSystemLibraries.AddRange(LibFilePaths);
 
 
-        // PublicLibraryPaths.Add(Path.GetFullPath(DracoLib));
 
 
 
